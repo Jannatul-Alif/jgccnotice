@@ -11,11 +11,13 @@ This project includes:
 - support for priorities like Normal, Important, and Urgent
 - house-based targeting for RH, SH, and TH
 - browser-local persistence using `localStorage`
+- a QR code page for opening the admin login on a phone
 
 ## Files
 
 - `admin.html` — admin login and notice management dashboard
 - `house.html` — public house notice board display
+- `qr-code.html` — QR code that opens the deployed admin login page
 
 ## Features
 
@@ -24,6 +26,7 @@ This project includes:
 - Choose target houses or broadcast to all houses
 - Display notice priority badges
 - View live updates on house screens
+- QR access to the admin login
 - Easy open-with-browser setup
 
 ## How to run
@@ -34,10 +37,15 @@ This project includes:
    - Username: `admin`
    - Password: `1234`
 4. Publish notices from the dashboard.
-5. Open a house display link from the dashboard or browse:
+5. Open `qr-code.html` and scan the displayed QR code to open the deployed admin login page.
+6. Open a house display link from the dashboard or browse:
    - `house.html?house=RH`
    - `house.html?house=SH`
    - `house.html?house=TH`
+
+The QR code currently points to:
+
+`https://jgccnotice.vercel.app/admin.html`
 
 ## Admin dashboard
 
