@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>House Notice Display</title>
+  <style>
+    :root {
+      --navy: #07111f;
+      --panel: #102840;
+      --blue: #7dd3fc;
+      --gold: #facc15;
+      --red: #ef4444;
+      --green: #22c55e;
+      --text: #ffffff;
+      --muted: #cbd5e1;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--navy);
+      color: var(--text);
+    }
+
+    .display {
+      min-height: 100vh;
+      padding: 24px 5%;
+      background: radial-gradient(circle at top right, #1b4975, transparent 35%), var(--navy);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .college {
+      font-size: clamp(24px, 4vw, 44px);
+      font-weight: 900;
+      letter-spacing: 4px;
+    }
+
+    .system {
+      margin-top: 7px;
+      color: var(--blue);
+      letter-spacing: 3px;
+      font-weight: bold;
+    }
+
+    .status {
+      text-align: right;
+      color: #86efac;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .house-box {
+      text-align: center;
+      padding: 30px 0 22px;
+    }
+
+    .house-label {
+      color: var(--blue);
+      letter-spacing: 6px;
+      font-weight: bold;
+    }
+
+    .house-box h1 {
+      margin: 10px 0;
+      line-height: 1;
+      letter-spacing: 3px;
+      font-size: clamp(54px, 9vw, 125px);
+      font-weight: 900;
+    }
+
+    .date-time {
+      color: var(--muted);
+      font-size: clamp(16px, 2vw, 25px);
+      font-weight: bold;
+    }
+
+    .sound-button {
+      display: block;
+      margin: 0 auto 22px;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--gold);
+      color: #422006;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .new-banner {
+      width: fit-content;
+      margin: 0 auto 24px;
+      padding: 12px 25px;
+      border-radius: 30px;
+      background: var(--gold);
+      color: #451a03;
+      font-weight: 900;
+      animation: flash 0.7s infinite alternate;
+    }
+
+    .notice-card {
+      max-width: 1150px;
+      margin: 0 auto 20px;
+      padding: 22px;
+      border-left: 9px solid #38bdf8;
+      border-radius: 12px;
+      background: var(--panel);
+      font-weight: 700;
+    }
+
+    .notice-card.important {
+      border-left-color: var(--gold);
+    }
+
+    .notice-card.urgent {
+      border-left-color: var(--red);
+    }
+
+    .notice-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: #bae6fd;
+      color: #075985;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .important .badge:first-child {
+      background: #fef08a;
+      color: #854d0e;
+    }
+
+    .urgent .badge:first-child {
+      background: #fecaca;
+      color: #991b1b;
+    }
+
+    .notice-card h2 {
+      margin: 18px 0 10px;
+      font-size: clamp(26px, 3vw, 46px);
+      font-weight: 900;
+    }
+
+    .notice-card p {
+      margin: 0;
+      white-space: pre-wrap;
+      color: #ffffff;
+      font-size: clamp(19px, 2vw, 30px);
+      line-height: 1.5;
+      font-weight: 700;
+    }
+
+    .notice-time {
+      margin-top: 15px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .empty {
+      text-align: center;
+      color: #94a3b8;
+      font-size: 23px;
+      font-weight: bold;
+      padding: 75px 20px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      padding: 20px;
+      color: #64748b;
+      font-weight: bold;
+    }
+
+    @keyframes flash {
+      from { transform: scale(1); }
+      to { transform: scale(1.06); }
+    }
+
+    @media (max-width: 700px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .status {
+        text-align: left;
+      }
+
+      .notice-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    const STORAGE_KEY = "cadet_college_notices";
+
+    const HOUSE_META = {
+      RH: { name: "RH", color: "67C900" },
+      SH: { name: "SH", color: "#7dd3fc" },
+      TH: { name: "TH", color: "#ef4444" }
+    };
+
+    const code = (new URLSearchParams(location.search).get("house") || "RH").toUpperCase();
+    const houseName = HOUSE_META[code] ? HOUSE_META[code].name : null;
+    const houseColor = HOUSE_META[code] ? HOUSE_META[code].color : "#facc15";
+
+    let audioContext = null;
+    let soundEnabled = false;
+    let previousIds = new Set();
+    let newNotice = false;
+    let alarmTimer = null;
+
+    function loadNotices() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      } catch {
+        return [];
+      }
+    }
+
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function targets(notice) {
+      if (Array.isArray(notice.targetHouses)) return notice.targetHouses;
+      if (notice.targetHouse === "ALL") return ["ALL"];
+      return [notice.targetHouse];
+    }
+
+    function relevantNotices() {
+      return loadNotices()
+        .filter(notice => notice.active && (
+          targets(notice).includes("ALL") || targets(notice).includes(code)
+        ))
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    }
+
+    function formatDate(value) {
+      return new Date(value).toLocaleString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+
+    function startAlarm() {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+
+      if (!audioContext) {
+        audioContext = new AudioContext();
+      }
+
+      if (audioContext.state === "suspended") {
+        audioContext.resume();
+      }
+
+      soundEnabled = true;
+
+      clearInterval(alarmTimer);
+      const endTime = Date.now() + 10000;
+
+      alarmTimer = setInterval(() => {
+        if (Date.now() >= endTime) {
+          clearInterval(alarmTimer);
+          return;
+        }
+
+        const oscillator = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+
+        oscillator.type = "sine";
+        oscillator.frequency.setValueAtTime(888, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(520, audioContext.currentTime + 0.35);
+
+        gain.gain.setValueAtTime(150, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(5, audioContext.currentTime + 5);
+
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
+
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.5);
+      }, 700);
+
+      const btn = document.getElementById("soundButton");
+      if (btn) btn.textContent = "🔔 Alarm enabled";
+    }
+
+    function noticeCard(notice) {
+      const priorityClass = (notice.priority || "Normal").toLowerCase();
+      const audience = targets(notice).includes("ALL") ? "All Houses" : targets(notice).join(", ");
+
+      return `
+        <article class="notice-card ${priorityClass}">
+          <div class="notice-top">
+            <span class="badge">${escapeHTML(notice.priority || "Normal")}</span>
+            <span class="badge">${escapeHTML(audience)}</span>
+          </div>
+
+          <h2>${escapeHTML(notice.title)}</h2>
+          <p>${escapeHTML(notice.message)}</p>
+
+          <div class="notice-time">
+            Published: ${formatDate(notice.createdAt)}
+          </div>
+        </article>
+      `;
+    }
+
+    function render() {
+      const app = document.getElementById("app");
+
+      if (!houseName) {
+        app.innerHTML = `
+          <main class="display">
+            <div class="empty">
+              Invalid house. Use ?house=RH, ?house=SH, or ?house=TH.
+            </div>
+          </main>
+        `;
+        return;
+      }
+
+      const notices = relevantNotices();
+
+      app.innerHTML = `
+        <main class="display">
+          <header class="header">
+            <div>
+              <div class="college">CADET COLLEGE</div>
+              <div class="system">DIGITAL NOTICE BOARD</div>
+            </div>
+
+            <div class="status">
+              <div>● Live Updates Active</div>
+              <div>🔔 ${soundEnabled ? "Alarm Enabled" : "Sound Ready"}</div>
+            </div>
+          </header>
+
+          <section class="house-box">
+            <div class="house-label">HOUSE NOTICE SCREEN</div>
+            <h1 style="color:${houseColor};">${houseName}</h1>
+            <div class="date-time">
+              ${new Date().toLocaleString("en-GB", {
+                weekday: "long",
+                day: "2-digit",
+                month: "long",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+              })}
+            </div>
+          </section>
+
+          <button class="sound-button" id="soundButton">
+            🔊 Enable alarm sound
+          </button>
+
+          ${newNotice ? '<div class="new-banner">🔔 NEW NOTICE</div>' : ""}
+
+          <section>
+            ${
+              notices.length
+                ? notices.map(noticeCard).join("")
+                : '<div class="empty">No active notices for this house.</div>'
+            }
+          </section>
+
+          <footer class="footer">
+            Official Digital Notice System · ${houseName}
+          </footer>
+        </main>
+      `;
+
+      document.getElementById("soundButton").onclick = startAlarm;
+    }
+
+    function checkForUpdates() {
+      const current = relevantNotices();
+      const currentIds = new Set(current.map(notice => String(notice.id)));
+
+      const hasNewNotice = [...currentIds].some(id => !previousIds.has(id));
+
+      if (previousIds.size > 0 && hasNewNotice) {
+        newNotice = true;
+
+        if (soundEnabled) {
+          startAlarm();
+        }
+
+        setTimeout(() => {
+          newNotice = false;
+          render();
+        }, 10000);
+      }
+
+      previousIds = currentIds;
+      render();
+    }
+
+    if (houseName) {
+      previousIds = new Set(relevantNotices().map(notice => String(notice.id)));
+      render();
+      setInterval(checkForUpdates, 1000);
+      window.addEventListener("storage", function (event) {
+        if (event.key === STORAGE_KEY) {
+          checkForUpdates();
+        }
+      });
+    } else {
+      render();
+    }
+  </script>
+</body>
+</html>
