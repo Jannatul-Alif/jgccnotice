@@ -17,24 +17,15 @@
       --text: #172033;
       --muted: #64748b;
     }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: var(--light);
       color: var(--text);
     }
-
-    button, input, textarea, select {
-      font: inherit;
-    }
-
+    button, input, textarea, select { font: inherit; }
     button { cursor: pointer; }
-
-    .hidden { display: none !important; }
-
     .login-page {
       min-height: 100vh;
       display: grid;
@@ -42,7 +33,6 @@
       padding: 20px;
       background: radial-gradient(circle at top, #1b4975, transparent 45%), var(--navy);
     }
-
     .login-card {
       width: min(430px, 100%);
       padding: 35px;
@@ -53,7 +43,6 @@
       background: var(--panel);
       box-shadow: 0 20px 70px rgba(0,0,0,0.5);
     }
-
     .logo {
       width: 70px;
       height: 70px;
@@ -65,22 +54,14 @@
       background: var(--yellow);
       font-size: 34px;
     }
-
-    .login-card h1 {
-      margin: 20px 0 8px;
-    }
-
-    .login-card p {
-      color: #94a3b8;
-    }
-
+    .login-card h1 { margin: 20px 0 8px; }
+    .login-card p { color: #94a3b8; }
     label {
       display: block;
       margin: 17px 0 7px;
       text-align: left;
       font-weight: bold;
     }
-
     input, textarea, select {
       width: 100%;
       padding: 13px;
@@ -90,9 +71,7 @@
       color: white;
       background: #142d48;
     }
-
     textarea { resize: vertical; }
-
     .primary-button {
       width: 100%;
       margin-top: 22px;
@@ -103,23 +82,13 @@
       background: var(--blue);
       font-weight: bold;
     }
-
     .error, .success {
       margin-top: 15px;
       padding: 12px;
       border-radius: 7px;
     }
-
-    .error {
-      color: #fecaca;
-      background: #7f1d1d;
-    }
-
-    .success {
-      color: #bbf7d0;
-      background: #14532d;
-    }
-
+    .error { color: #fecaca; background: #7f1d1d; }
+    .success { color: #bbf7d0; background: #14532d; }
     .admin-header {
       display: flex;
       justify-content: space-between;
@@ -129,28 +98,10 @@
       color: white;
       background: var(--navy);
     }
-
-    .admin-header h1 {
-      margin: 0 0 6px;
-    }
-
-    .admin-header p {
-      margin: 0;
-      color: #94a3b8;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .connection-status {
-      color: #86efac;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
+    .admin-header h1 { margin: 0 0 6px; }
+    .admin-header p { margin: 0; color: #94a3b8; }
+    .header-actions { display: flex; align-items: center; gap: 15px; }
+    .connection-status { color: #86efac; font-size: 14px; font-weight: bold; }
     .logout-button, .small-button {
       padding: 9px 13px;
       border: 0;
@@ -158,7 +109,6 @@
       color: white;
       background: #334155;
     }
-
     .dashboard-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -167,28 +117,15 @@
       max-width: 1400px;
       margin: 30px auto;
     }
-
     .stat-card {
       padding: 22px;
       border-radius: 13px;
       background: white;
       box-shadow: 0 3px 12px rgba(15,23,42,0.1);
     }
-
-    .stat-card strong, .stat-card span {
-      display: block;
-    }
-
-    .stat-card strong {
-      color: #0369a1;
-      font-size: 32px;
-    }
-
-    .stat-card span {
-      margin-top: 5px;
-      color: var(--muted);
-    }
-
+    .stat-card strong, .stat-card span { display: block; }
+    .stat-card strong { color: #0369a1; font-size: 32px; }
+    .stat-card span { margin-top: 5px; color: var(--muted); }
     .admin-content {
       display: grid;
       grid-template-columns: minmax(300px, 420px) 1fr;
@@ -197,50 +134,28 @@
       max-width: 1400px;
       margin: auto;
     }
-
     .form-panel, .notices-panel, .links-panel {
       padding: 24px;
       border-radius: 14px;
       background: white;
       box-shadow: 0 3px 12px rgba(15,23,42,0.08);
     }
-
-    .form-panel h2, .notices-panel h2, .links-panel h2 {
-      margin-top: 0;
-    }
-
-    .form-panel label {
-      color: var(--text);
-    }
-
+    .form-panel h2, .notices-panel h2, .links-panel h2 { margin-top: 0; }
+    .form-panel label { color: var(--text); }
     .form-panel input, .form-panel textarea, .form-panel select {
       color: var(--text);
       border-color: #cbd5e1;
       background: white;
     }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .checkbox-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
       margin-top: 8px;
     }
-
-    .house-option {
-      position: relative;
-    }
-
-    .house-option input {
-      position: absolute;
-      opacity: 0;
-    }
-
+    .house-option { position: relative; }
+    .house-option input { position: absolute; opacity: 0; }
     .house-option label {
       display: block;
       margin: 0;
@@ -253,13 +168,11 @@
       cursor: pointer;
       font-weight: bold;
     }
-
     .house-option input:checked + label {
       background: #eaf5ff;
       border-color: var(--blue);
       color: #0b4e86;
     }
-
     .notice-card {
       margin-bottom: 18px;
       padding: 20px;
@@ -267,17 +180,14 @@
       border-radius: 10px;
       background: #f8fafc;
     }
-
     .notice-card.important { border-left-color: var(--yellow); }
     .notice-card.urgent { border-left-color: var(--red); }
-
     .notice-top, .notice-bottom {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 10px;
     }
-
     .badge {
       display: inline-block;
       padding: 5px 9px;
@@ -287,49 +197,27 @@
       font-size: 12px;
       font-weight: bold;
     }
-
-    .notice-card.important .badge {
-      color: #854d0e;
-      background: #fef08a;
-    }
-
-    .notice-card.urgent .badge {
-      color: #991b1b;
-      background: #fecaca;
-    }
-
+    .notice-card.important .badge { color: #854d0e; background: #fef08a; }
+    .notice-card.urgent .badge { color: #991b1b; background: #fecaca; }
     .notice-card h3 {
       margin: 16px 0 8px;
       font-size: 23px;
       font-weight: 900;
     }
-
     .notice-card p {
       white-space: pre-wrap;
       color: #475569;
       line-height: 1.6;
       font-weight: 700;
     }
-
-    .notice-bottom {
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .notice-actions {
-      display: flex;
-      gap: 8px;
-    }
-
+    .notice-bottom { color: var(--muted); font-size: 13px; font-weight: bold; }
+    .notice-actions { display: flex; gap: 8px; }
     .delete-button { background: #b91c1c; }
-
     .links-panel {
       width: 90%;
       max-width: 1400px;
       margin: 28px auto 50px;
     }
-
     .display-link {
       display: grid;
       grid-template-columns: 150px 1fr auto;
@@ -338,33 +226,26 @@
       padding: 15px 0;
       border-bottom: 1px solid #e2e8f0;
     }
-
-    .display-link code {
-      color: #475569;
-      word-break: break-all;
-    }
-
-    .display-link a {
-      color: #0369a1;
-      font-weight: bold;
-    }
-
+    .display-link code { color: #475569; word-break: break-all; }
+    .display-link a { color: #0369a1; font-weight: bold; }
     @media (max-width: 800px) {
       .admin-header { flex-direction: column; align-items: flex-start; }
       .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
       .admin-content { grid-template-columns: 1fr; }
       .display-link { grid-template-columns: 1fr; }
     }
-
     @media (max-width: 500px) {
       .dashboard-grid, .form-row, .checkbox-grid { grid-template-columns: 1fr; }
       .notice-top, .notice-bottom { align-items: flex-start; flex-direction: column; }
     }
   </style>
 </head>
-
 <body>
   <div id="app"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
 
   <script>
     const USERNAME = "admin";
@@ -381,18 +262,31 @@
       catch { return []; }
     }
 
-    function saveNotices(notices) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(notices));
+    async function refreshFromSharedStore() {
+      if (window.JGCCFirebase && typeof window.JGCCFirebase.getNotices === "function") {
+        const remoteNotices = await window.JGCCFirebase.getNotices();
+        if (Array.isArray(remoteNotices)) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(remoteNotices));
+          return remoteNotices;
+        }
+      }
+      return loadNotices();
     }
 
-    function escapeHTML(value) {
-      return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+    function saveNotices(notices) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(notices));
+      if (window.JGCCFirebase && typeof window.JGCCFirebase.saveNotices === "function") {
+        return window.JGCCFirebase.saveNotices(notices);
+      }
+      return Promise.resolve();
     }
+
+    function escapeHTML(value) { return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;"); }
 
     function formatDate(value) {
       return new Date(value).toLocaleString("en-GB", {
@@ -426,15 +320,11 @@
             <div class="logo">📢</div>
             <h1>Admin Login</h1>
             <p>JGCC Smart Bulletin Board</p>
-
             <label>Username</label>
             <input id="username" required placeholder="Enter username">
-
             <label>Password</label>
             <input id="password" type="password" required placeholder="Enter password">
-
             <div id="loginMessage"></div>
-
             <button class="primary-button">Login</button>
           </form>
         </main>
@@ -456,38 +346,27 @@
 
     function createNoticeCard(notice) {
       const priorityClass = notice.priority.toLowerCase();
-
       return `
         <article class="notice-card ${priorityClass}">
           <div class="notice-top">
             <span class="badge">${escapeHTML(notice.priority)}</span>
             <span class="badge">${escapeHTML(houseLabels(notice.targetHouses || [notice.targetHouse || "ALL"]))}</span>
           </div>
-
           <h3>${escapeHTML(notice.title)}</h3>
           <p>${escapeHTML(notice.message)}</p>
-
           <div class="notice-bottom">
             <span>${formatDate(notice.createdAt)}</span>
-
             <div class="notice-actions">
-              ${
-                notice.active
-                  ? `<button class="small-button" onclick="archiveNotice('${notice.id}')">Archive</button>`
-                  : `<span>Archived</span>`
-              }
-
-              <button class="small-button delete-button" onclick="removeNotice('${notice.id}')">
-                Delete
-              </button>
+              ${ notice.active ? `<button class="small-button" onclick="archiveNotice('${notice.id}')">Archive</button>` : `<span>Archived</span>` }
+              <button class="small-button delete-button" onclick="removeNotice('${notice.id}')">Delete</button>
             </div>
           </div>
         </article>
       `;
     }
 
-    function renderAdmin() {
-      const notices = loadNotices();
+    async function renderAdmin() {
+      const notices = await refreshFromSharedStore();
       const active = notices.filter(notice => notice.active);
 
       document.getElementById("app").innerHTML = `
@@ -497,9 +376,8 @@
               <h1>JGCC Smart Bulletin Board</h1>
               <p>Administrator Dashboard</p>
             </div>
-
             <div class="header-actions">
-              <span class="connection-status">● Browser Storage Connected</span>
+              <span class="connection-status">● Shared Storage Ready</span>
               <button class="logout-button" id="logoutButton">Logout</button>
             </div>
           </header>
@@ -514,13 +392,10 @@
           <section class="admin-content">
             <form class="form-panel" id="noticeForm">
               <h2>Create New Notice</h2>
-
               <label>Notice Title</label>
               <input id="noticeTitle" required placeholder="Example: Football Practice">
-
               <label>Notice Message</label>
               <textarea id="noticeMessage" rows="6" required placeholder="Write notice details..."></textarea>
-
               <div class="form-row">
                 <div>
                   <label>Select House(s)</label>
@@ -533,7 +408,6 @@
                     `).join("")}
                   </div>
                 </div>
-
                 <div>
                   <label>Priority</label>
                   <select id="priority">
@@ -543,24 +417,18 @@
                   </select>
                 </div>
               </div>
-
               <button class="primary-button">Publish Notice</button>
               <div id="publishMessage"></div>
             </form>
 
             <section class="notices-panel">
               <h2>Notice History</h2>
-              ${
-                notices.length
-                  ? notices.map(createNoticeCard).join("")
-                  : "<p>No notices published yet.</p>"
-              }
+              ${notices.length ? notices.map(createNoticeCard).join("") : "<p>No notices published yet.</p>"}
             </section>
           </section>
 
           <section class="links-panel">
             <h2>House Display Links</h2>
-
             ${["RH","SH","TH"].map(code => `
               <div class="display-link">
                 <strong>${HOUSE_META[code].name}</strong>
@@ -577,7 +445,7 @@
         renderLogin();
       };
 
-      document.getElementById("noticeForm").onsubmit = function(event) {
+      document.getElementById("noticeForm").onsubmit = async function(event) {
         event.preventDefault();
 
         const title = document.getElementById("noticeTitle").value.trim();
@@ -585,13 +453,10 @@
         const priority = document.getElementById("priority").value;
         const selectedHouses = [...document.querySelectorAll('input[name="houseGroup"]:checked')].map(input => input.value);
 
-        if (!title || !message) {
-          return;
-        }
+        if (!title || !message) return;
 
-        const notices = loadNotices();
-
-        notices.unshift({
+        const current = await refreshFromSharedStore();
+        current.unshift({
           id: createId(),
           title,
           message,
@@ -602,35 +467,25 @@
           createdAt: new Date().toISOString()
         });
 
-        saveNotices(notices);
-
+        await saveNotices(current);
         document.getElementById("noticeForm").reset();
-        document.getElementById("publishMessage").innerHTML =
-          `<div class="success">Notice published successfully.</div>`;
-
+        document.getElementById("publishMessage").innerHTML = `<div class="success">Notice published successfully.</div>`;
         setTimeout(renderAdmin, 700);
       };
     }
 
-    function archiveNotice(id) {
-      const notices = loadNotices().map(notice => {
-        if (notice.id === id) {
-          return { ...notice, active: false };
-        }
-        return notice;
-      });
-
-      saveNotices(notices);
+    async function archiveNotice(id) {
+      const notices = await refreshFromSharedStore();
+      const updated = notices.map(notice => notice.id === id ? { ...notice, active: false } : notice);
+      await saveNotices(updated);
       renderAdmin();
     }
 
-    function removeNotice(id) {
-      if (!confirm("Delete this notice permanently?")) {
-        return;
-      }
-
-      const notices = loadNotices().filter(notice => notice.id !== id);
-      saveNotices(notices);
+    async function removeNotice(id) {
+      if (!confirm("Delete this notice permanently?")) return;
+      const notices = await refreshFromSharedStore();
+      const updated = notices.filter(notice => notice.id !== id);
+      await saveNotices(updated);
       renderAdmin();
     }
 
