@@ -8,56 +8,78 @@
     appId: "YOUR_APP_ID"
   };
 
-  const config = window.JGCC_FIREBASE_CONFIG || DEFAULT_CONFIG;
-  const state = {
-    db: null,
-    initialized: false
-  };
+  window.JGCC_FIREBASE_CONFIG = window.JGCC_FIREBASE_CONFIG || DEFAULT_CONFIG;
+  window.JGCC_USE_FIREBASE = window.JGCC_USE_FIREBASE !== false;
 
-  function hasValidConfig() {
-    return !!config.projectId &&
-      config.projectId.indexOf("YOUR_") === -1 &&
-      !!window.JGCC_USE_FIREBASE;
+  function readLocalNotices() {
+    try {
+      return JSON.parse(localStorage.getItem("cadet_college_notices")) || [];
+    } catch {
+      return [];
+    }
+  }
+
+  function writeLocalNotices(notices) {
+    localStorage.setItem("cadet_college_notices", JSON.stringify(notices));
+  }
+
+  function isConfigured() {
+    const config = window.JGCC_FIREBASE_CONFIG || {};
+    const projectId = String(config.projectId || "");
+    return window.JGCC_USE_FIREBASE !== false &&
+      !!projectId &&
+      !projectId.includes("YOUR_") &&
+      !!config.apiKey &&
+      !!config.appId;
   }
 
   window.JGCCFirebase = {
-    config,
-
     init() {
-      if (state.initialized) return true;
-      if (!hasValidConfig()) return false;
+      if (!isConfigured()) return false;
       if (!window.firebase) return false;
 
       if (!firebase.apps.length) {
-        firebase.initializeApp(config);
+        firebase.initializeApp(window.JGCC_FIREBASE_CONFIG);
       }
 
-      state.db = firebase.firestore();
-      state.initialized = true;
       return true;
     },
 
     async getNotices() {
+      const localNotices = readLocalNotices();
+
       if (!this.init()) {
-        try {
-          return JSON.parse(localStorage.getItem("cadet_college_notices")) || [];
-        } catch {
-          return [];
-        }
+        return localNotices;
       }
 
-      const snapshot = await state.db.collection("noticeBoard").doc("board").get();
-      const notices = snapshot.data()?.notices;
-      return Array.isArray(notices) ? notices : [];
+      try {
+        const snapshot = await firebase.firestore().collection("noticeBoard").doc("board").get();
+        const notices = snapshot.data()?.notices;
+
+        if (Array.isArray(notices)) {
+          writeLocalNotices(notices);
+          return notices;
+        }
+
+        return localNotices;
+      } catch (error) {
+        console.warn("Firebase load failed. Using local storage instead.", error);
+        return localNotices;
+      }
     },
 
     async saveNotices(notices) {
+      writeLocalNotices(notices);
+
       if (!this.init()) {
-        localStorage.setItem("cadet_college_notices", JSON.stringify(notices));
         return;
       }
 
-      await state.db.collection("noticeBoard").doc("board").set({ notices }, { merge: true });
+      try {
+        await firebase.firestore().collection("noticeBoard").doc("board").set({ notices }, { merge: true });
+      } catch (error) {
+        console.warn("Firebase save failed. Local storage was still updated.", error);
+      }
     }
   };
 })();
